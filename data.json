@@ -1,0 +1,5 @@
+[{y:0.25,c:"#cccccc",a:4},"D0\nB0","D1\nB0","D2\nB0","D3\nB0","D5\nB0","D4\nB0","D6\nB0","D7\nB0","B4\nB0","F7\nB0","F6\nB0","F5\nB0","F4\nB0",{c:"#b0a7fa"},"F1\nB0","F0\nB0",{c:"#cccccc"},"F0\nB7"],
+[{w:1.5},"D0\nB1","D1\nB1","D2\nB1","D3\nB1","D5\nB1","D4\nB1","D6\nB1","D7\nB1","B4\nB1","F7\nB1","F6\nB1","F5\nB1","F4\nB1",{w:1.5},"F4\nB2","F0\nB1"],
+[{w:1.75},"D0\nB2","D1\nB2","D2\nB2","D3\nB2","D5\nB2","D4\nB2","D6\nB2","D7\nB2","B4\nB2","F7\nB2","F6\nB2","F5\nB2",{w:2.25},"F1\nB1","F0\nB2"],
+[{a:4,w:2.25},"D0\nB3","D2\nB3","D3\nB3","D5\nB3","D4\nB3","D6\nB3","D7\nB3","B4\nB3","F7\nB3","F6\nB3","F5\nB3",{w:1.75},"F4\nB3","F1\nB3","F0\nB3"],
+[{c:"#e6aeae",a:4,w:1.5},"D0\nB7","D1\nB7",{w:1.5},"D2\nB7",{w:7},"D6\nB7",{a:4,w:1.5},"F7\nB7",{x:0.5,c:"#cccccc"},"F5\nB7","F4\nB7","F1\nB7"]
