@@ -1,13 +1,119 @@
 <html>
 <head>
+    <!-- Make chrome mobile color dark gray -->
+    <meta name="theme-color" content="#202020">
+
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <title>MrKeebs KLE to QMK Converter</title>
+
+    <style>
+      body {
+        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+      }
+
+      .row {
+        display: flex;
+      }
+
+      .column {
+        flex: 50%;
+      }
+
+      .container {
+        /* max-width: 768px; */
+        margin: 0 auto;
+      }
+
+      .container h1 {
+        text-align: center;
+        margin: 30 0;
+      }
+
+      .container h1 span {
+        font-size: 14px;
+        font-weight: normal;
+        display: block;
+      }
+
+      .group label {
+        width: 200px;
+        display: inline-block;
+        text-align: right;
+        margin-top: 20px;
+      }
+      .group label {
+        margin-top: 20px;
+        width: 100%;
+        text-align: center;
+        display: block;
+      }
+      .group {
+        text-align: center;
+      }
+      .group.button {
+        margin-top: 20px;
+      }
+      .group textarea {
+        width: 600px;
+        height: 200px;
+        font-family: monospace;
+      }
+      .group input {
+        width: 500px;
+        font-family: monospace;
+      }
+
+      .pre {
+        margin: 0 auto;
+      }
+
+      pre {
+        padding: 15px;
+        font-family: monospace;
+        background: #eee;
+      }
+    </style>
 </head>
 <body>
-  <input id="rows" size="40" value="B0, B1, B2, B3, B7"><br>
-  <input id="cols" size="40" value="D0, D1, D2, D3, D5, D4, D6, D7, B4, F7, F6, F5, F4, F1, F0"><br>
-  <textarea id="layout" rows="10" cols="80"></textarea><br>
-  <button id="convert">Convert</button>
+  <div class="container">
+    <h1>
+      MrKeebs KLE Matrix to QMK Layout Converter
+      <span>
+        <a href="http://mrkeebs.com">YouTube</a> |
+        <a href="https://twitch.tv/misterkeebs">Twitch</a> |
+        <a href="https://instagram.com/misterkeebs">Instagram</a> |
+        <a href="https://discord.gg/ZXd5GRG">Discord</a>
+      </span>
+    </h1>
+  </div>
+  <div class="container">
+    <div class="row">
+      <div class="column">
+        <div class="group">
+          <label for="rows">Row Pins</label>
+          <input id="rows" name="rows" value="B0, B1, B2, B3, B7">
+        </div>
+        <div class="group">
+          <label for="cols">Col Pins</label>
+          <input id="cols" name="cols" value="D0, D1, D2, D3, D5, D4, D6, D7, B4, F7, F6, F5, F4, F1, F0"><br>
+        </div>
+        <div class="group textarea">
+          <label for="layout" class="textarea">KLE Raw Data</label>
+          <textarea id="layout" name="layout" rows="10" cols="80"></textarea><br>
+        </div>
+        <div class="group button">
+          <button id="convert">Convert</button>
+        </div>
+      </div>
 
-  <pre id="result"></pre>
+      <div class="column">
+        <div class="pre">
+          <pre id="result"></pre>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <script src="index.js"></script>
 </body>

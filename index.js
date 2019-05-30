@@ -6,12 +6,6 @@ class Key {
     this.posRow = y;
     this.matCol = Array.from(Key.cols).indexOf(col);
     this.matRow = Array.from(Key.rows).indexOf(row);
-    console.log('key',
-      this.posCol,
-      this.posRow,
-      this.matCol,
-      this.matRow,
-    );
   }
 }
 
