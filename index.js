@@ -9,6 +9,23 @@ class Key {
   }
 }
 
+function kleToJSON(layout) {
+  return JSON.parse('[' + layout.replace(/([a-z]):/g, '"$1":') + ']');
+}
+
+function parseKeys(kleStr) {
+  const layout = kleToJSON(kleStr);
+  const keys = [];
+  layout.forEach((r, y) => {
+    r.forEach((key, x) => {
+      if (!key || (typeof key !== 'object')) {
+        keys.push(new Key(x, y, key));
+      }
+    });
+  });
+  return keys;
+}
+
 function run(_rows, _cols, kleStr) {
   const cols = _cols.split(',').map(x => x.trim());
   const rows = _rows.split(',').map(x => x.trim());
@@ -16,19 +33,8 @@ function run(_rows, _cols, kleStr) {
   Key.cols = cols;
   Key.rows = rows;
 
-  const str = kleStr.replace(/([a-z]):/g, '"$1":');
-  console.log('str', str);
-  const data = JSON.parse('[' + str + ']');
-  const keys = [];
-  console.log('data', data);
-
-  data.forEach((r, y) => {
-    r.forEach((key, x) => {
-      if (!key || (typeof key !== 'object')) {
-        keys.push(new Key(x, y, key));
-      }
-    });
-  });
+  const data = kleToJSON(kleStr);
+  const keys = parseKeys(data);
 
   const matrix = [];
   let matrixStr = '';
@@ -75,11 +81,16 @@ function run(_rows, _cols, kleStr) {
   document.getElementById('result').innerText = res;
 }
 
+function calcRowsCols(kleStr) {
+  const keys = [];
+}
+
 (function() {
-  const convert = document.getElementById('convert');
+  const convertEl = document.getElementById('convert');
   const rows = document.getElementById('rows');
   const cols = document.getElementById('cols');
   const layout = document.getElementById('layout');
-  console.log('layout', layout);
-  convert.onclick = () => run(rows.value, cols.value, layout.value);
+
+  convertEl.onclick = () => run(rows.value, cols.value, layout.value);
+  layout.onblur = () => calcRowsCols(layout.value);
 })();
