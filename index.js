@@ -1,15 +1,11 @@
 function run(keyboard) {
+  console.log('keyboard', keyboard);
   const matrix = [];
   let matrixStr = '';
   for (let r = 0; r < keyboard.rows.length; r++) {
     for (let c = 0; c < keyboard.cols.length; c++) {
       const key = keyboard.keyAt(c, r);
-      if (key) {
-        key.name = `k${key.row.toString(16)}${key.col.toString(16)}`;
-        matrixStr += `${key.name}, `;
-      } else {
-        matrixStr += `___, `;
-      }
+      matrixStr += `${key.name}, `;
     }
     matrix.push(`  { ${matrixStr.slice(0, -2)} }, `);
     matrixStr = '';
@@ -17,16 +13,13 @@ function run(keyboard) {
 
   const layout = [];
   let layoutStr = '';
-  // data.forEach((r, y) => {
-  //   r.forEach((key, x) => {
-  //     const k = keys.find(k => k.posCol === x && k.posRow === y);
-  //     if (k) {
-  //       layoutStr += k.name + ', ';
-  //     }
-  //   });
-  //   layout.push(`  ${layoutStr}`);
-  //   layoutStr = '';
-  // });
+  keyboard.layout.forEach(row => {
+    row.forEach(key => {
+      layoutStr += `${key.name}, `;
+    });
+    layout.push(`  ${layoutStr}`);
+    layoutStr = '';
+  });
 
   const res = `#pragma once
 

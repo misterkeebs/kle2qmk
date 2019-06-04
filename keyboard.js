@@ -8,6 +8,15 @@ class Key {
   }
 }
 
+class NullKey extends Key {
+  constructor(x, y, col, row) {
+    super(0, 0, 0, 0);
+    this.name = '___';
+  }
+}
+
+const NULL_KEY = new NullKey();
+
 class Keyboard {
   constructor(kleStr) {
     this.kleLayout = parseKle(kleStr);
@@ -27,11 +36,21 @@ class Keyboard {
   }
 
   keyAt(x, y) {
-    return this.keys.find(k => k.x === x && k.y === y);
+    const key = this.keys.find(k => k.x === x && k.y === y)
+      || NULL_KEY;
+    return key;
   }
 
   parse() {
     this.layout = [];
+    for (let r = 0; r < this.kleLayout.length; r++) {
+      const line = this.kleLayout[r];
+      const keyStr = line.find(el => typeof el !== 'object');
+      const [col, row] = keyStr.split('\n');
+      this._cols.add(col);
+      this._rows.add(row);
+    }
+
     for (let r = 0; r < this.kleLayout.length; r++) {
       const rowArr = [];
       const line = this.kleLayout[r];
@@ -61,6 +80,6 @@ function parseKle(layout) {
   return JSON.parse('[' + layout.replace(/([a-z]):/g, '"$1":') + ']');
 }
 
-if (module && module.exports) {
+if (typeof module !== 'undefined' && module.exports) {
   module.exports = { Keyboard };
 }
