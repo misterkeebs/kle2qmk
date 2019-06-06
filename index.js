@@ -46,14 +46,37 @@ window.onload = () => {
   const rows = document.getElementById('rows');
   const cols = document.getElementById('cols');
   const layout = document.getElementById('layout');
+  const result = document.getElementById('result');
 
   let keyboard;
 
-  layout.onblur = () => {
-    keyboard = new Keyboard(layout.value)
-    rows.value = Array.from(keyboard.rows).join(', ');
-    cols.value = Array.from(keyboard.cols).join(', ');
+  const err = (err) => {
+    if (err.stack) {
+      result.innerText = err.stack;
+    } else {
+      result.innerText = err;
+    }
   };
 
-  convert.onclick = () => run(keyboard);
+  layout.onblur = () => {
+    result.innerText = "";
+    try {
+      keyboard = new Keyboard(layout.value)
+      rows.value = Array.from(keyboard.rows).join(', ');
+      cols.value = Array.from(keyboard.cols).join(', ');
+    } catch (e) {
+      err(e);
+    }
+  };
+
+  convert.onclick = () => {
+    result.innerText = "";
+    try {
+      keyboard.cols = cols.value.split(',').map(v => v.trim());
+      keyboard.rows = rows.value.split(',').map(v => v.trim());
+      run(keyboard);
+    } catch (e) {
+      err(e);
+    }
+  }
 };

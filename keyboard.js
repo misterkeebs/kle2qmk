@@ -27,8 +27,16 @@ class Keyboard {
     this.parse();
   }
 
+  set rows(rows) {
+    this._rows = new Set(rows);
+  }
+
   get rows() {
     return Array.from(this._rows);
+  }
+
+  set cols(cols) {
+    this._cols = new Set(cols);
   }
 
   get cols() {
@@ -43,9 +51,14 @@ class Keyboard {
 
   parse() {
     this.layout = [];
+    const errors = new Set();
     for (let r = 0; r < this.kleLayout.length; r++) {
       const line = this.kleLayout[r];
       const keyStr = line.find(el => typeof el !== 'object');
+      if (!keyStr || !keyStr.length) {
+        errors.add(`Missing data for row ${r}`);
+        continue;
+      }
       const [col, row] = keyStr.split('\n');
       this._cols.add(col);
       this._rows.add(row);
@@ -61,6 +74,14 @@ class Keyboard {
           continue;
         }
         const [col, row] = keyStr.split('\n');
+        console.log('col', col);
+        console.log('row', row);
+        if (!col || !col.length) {
+          errors.add(`Missing col info at ${c}, ${r}`);
+        }
+        if (!row || !row.length) {
+          errors.add(`Missing row info at ${c}, ${r}`);
+        }
         this._cols.add(col);
         this._rows.add(row);
 
@@ -71,6 +92,11 @@ class Keyboard {
         rowArr.push(key);
       }
       this.layout.push(rowArr);
+    }
+
+  console.log('errors', errors);
+    if (errors.size > 0) {
+      throw Array.from(errors).join(`\n`);
     }
   }
 }
